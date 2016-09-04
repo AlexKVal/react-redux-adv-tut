@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch'
 
+import postsBySubreddit from '../reducers/postsBySubreddit'
+
 // user actions
 export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
 export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
@@ -51,5 +53,26 @@ export function fetchPosts(subreddit) {
       })
       .then(json => dispatch(receivePosts(subreddit, json)))
       .catch(error => console.log('fetch failed:', error)) // a stub
+  }
+}
+
+function shouldFetchPosts(state, subreddit) {
+  const posts = state.postsBySubreddit[subreddit]
+  if (!posts) {
+    return true
+  } else if (posts.isFetching) {
+    return false
+  } else {
+    return posts.didInvalidate
+  }
+}
+
+export function fetchPostsIfNeeded(subreddit) {
+  return (dispatch, getState) => {
+    if (shouldFetchPosts(getState(), subreddit)) {
+      return dispatch(fetchPosts(subreddit))
+    }
+
+    return Promise.resolve()
   }
 }
