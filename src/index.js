@@ -7,7 +7,7 @@ import createLogger from 'redux-logger'
 
 import { selectSubreddit, fetchPosts } from './actions'
 import rootReducer from './reducers'
-import App from './components/App'
+import App from './containers/App'
 
 const loggerMiddleware = createLogger()
 
