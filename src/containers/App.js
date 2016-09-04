@@ -71,12 +71,12 @@ class App extends Component {
   }
 }
 
-App.PropTypes = {
-  selectedSubreddit: PropTypes.string.isRequire,
-  posts: PropTypes.array.isRequire,
-  isFetching: PropTypes.bool.isRequire,
+App.propTypes = {
+  selectedSubreddit: PropTypes.string.isRequired,
+  posts: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   lastUpdated: PropTypes.number,
-  dispatch: PropTypes.func.isRequire,
+  dispatch: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
